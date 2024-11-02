@@ -25,13 +25,18 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -74,46 +79,59 @@ val books = arrayOf(book1,book2,book3,book1,book2,book3,book1,book2,book3)
 
 @Composable
 fun BookListScreen(navController: NavController, modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(30.dp)
-    ) {
-        Text(
-            text = "Book List",
-            style = TextStyle(
-                fontSize = 50.sp,
-                textAlign = TextAlign.Left,
-            )
-        )
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+
+    Scaffold(
+      modifier = Modifier.fillMaxSize(),
+
+      floatingActionButton = {
+          FloatingActionButton({
+            navController.navigate("book_add")
+          }) {
+              Icon(Icons.Default.Add, contentDescription = "Add")
+          }
+      }
+    ) { innerPadding ->
 
         Column(
             modifier = modifier
-                .fillMaxWidth()
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(1.dp),
+                .fillMaxSize()
+                .padding(30.dp,30.dp,30.dp,0.dp)
         ) {
-            for (idx in books.indices step 2) {
-                Row(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .height(240.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    CardBook(idx)
+            Text(
+                text = "Book List",
+                style = TextStyle(
+                    fontSize = 40.sp,
+                    textAlign = TextAlign.Left,
+                )
+            )
 
-                    if (idx + 1 < books.size) {
+            Column(
+                modifier = modifier
+                    .fillMaxHeight()
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(1.dp),
+            ) {
+                for (idx in books.indices step 2) {
+                    Row(
+                        modifier = modifier
+                            .fillMaxWidth()
+                            .height(screenHeight * 0.25f),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
                         CardBook(idx)
+
+                        if (idx + 1 < books.size) {
+                            CardBook(idx)
+                        }
                     }
+
                 }
 
             }
 
         }
-
     }
-
-
 }
 
 @Preview(showBackground = true)

@@ -23,15 +23,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.utsproject.ui.screen.books
+import androidx.compose.ui.platform.LocalConfiguration
+
 
 @Composable
 fun CardBook(idx: Int, modifier: Modifier = Modifier) {
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
         ),
         modifier = Modifier
-            .width(160.dp)
+            .width(screenWidth * 0.4f)
     ) {
         Row (
             modifier = modifier

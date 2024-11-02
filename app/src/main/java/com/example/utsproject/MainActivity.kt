@@ -35,36 +35,22 @@ class MainActivity : ComponentActivity() {
         setContent {
 
             UTSProjectTheme {
-                CustomScaffold()
+                val navController = rememberNavController()
+
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                ) { innerPadding ->
+                      NavHost(
+                        navController, 
+                        startDestination = "book_list",
+                        modifier = Modifier.padding(innerPadding)
+                      ) {
+                          composable("book_list") { BookListScreen(navController, modifier = Modifier.padding(innerPadding)) }
+                          composable("book_add") { AddBookScreen(navController, modifier = Modifier.padding(innerPadding)) }
+                      }
+                }
             }
         }
-    }
-}
-
-@Composable
-fun CustomScaffold() {
-    val navController = rememberNavController()
-    // var presses by remember { mutableIntStateOf(0) }
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-
-        floatingActionButton = {
-            FloatingActionButton({
-              navController.navigate("book_add")
-            }) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
-            }
-        }
-    ) { innerPadding ->
-          NavHost(
-            navController, 
-            startDestination = "book_list",
-            modifier = Modifier.padding(innerPadding)
-          ) {
-              composable("book_list") { BookListScreen(navController, modifier = Modifier.padding(innerPadding)) }
-              composable("book_add") { AddBookScreen(navController, modifier = Modifier.padding(innerPadding)) }
-          }
     }
 }
 
