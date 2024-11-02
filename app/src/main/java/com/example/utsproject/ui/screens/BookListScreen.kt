@@ -10,13 +10,16 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -59,41 +62,50 @@ val book3 = Book(
     summary = "A novel set in the Roaring Twenties, exploring themes of wealth, society, and the American dream."
 )
 
-val books = arrayOf(book1,book2,book3)
+val books = arrayOf(book1,book2,book3,book1,book2,book3,book1,book2,book3)
 
 @Composable
 fun BookListScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(30.dp),
-        verticalArrangement = Arrangement.spacedBy(1.dp),
+            .padding(30.dp)
     ) {
         Text(
             text = "Book List",
-            modifier = modifier,
             style = TextStyle(
                 fontSize = 50.sp,
                 textAlign = TextAlign.Left,
             )
         )
-        for (idx in books.indices step 2) {
-            Row(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(240.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                CardBook(idx)
 
-                if (idx + 1 < books.size) {
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(1.dp),
+        ) {
+            for (idx in books.indices step 2) {
+                Row(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .height(240.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
                     CardBook(idx)
+
+                    if (idx + 1 < books.size) {
+                        CardBook(idx)
+                    }
                 }
+
             }
 
         }
 
     }
+
+
 }
 
 @Preview(showBackground = true)
