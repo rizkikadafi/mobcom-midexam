@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -66,10 +67,12 @@ val books = arrayOf(book1,book2,book3,book1,book2,book3,book1,book2,book3)
 
 @Composable
 fun BookListScreen(modifier: Modifier = Modifier) {
+    val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(30.dp)
+            .padding(30.dp,30.dp,30.dp,0.dp)
     ) {
         Text(
             text = "Book List",
@@ -81,7 +84,7 @@ fun BookListScreen(modifier: Modifier = Modifier) {
 
         Column(
             modifier = modifier
-                .fillMaxWidth()
+                .fillMaxHeight()
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(1.dp),
         ) {
@@ -89,7 +92,7 @@ fun BookListScreen(modifier: Modifier = Modifier) {
                 Row(
                     modifier = modifier
                         .fillMaxWidth()
-                        .height(240.dp),
+                        .height(screenHeight * 0.25f),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     CardBook(idx)
