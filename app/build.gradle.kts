@@ -55,6 +55,7 @@ dependencies {
     val room_version = "2.6.1"
     val lifecycle_version = "2.8.7"
     val coroutines_version = "1.9.0"
+    val nav_version = "2.8.3"
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -83,4 +84,5 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+    implementation("androidx.navigation:navigation-compose:$nav_version")
 }

@@ -36,6 +36,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.*
+import androidx.navigation.NavController
 import com.example.utsproject.Greeting
 import com.example.utsproject.ui.theme.UTSProjectTheme
 import com.example.utsproject.data.model.Book
@@ -54,6 +56,8 @@ val book2 = Book(
     id = 2,
     title = "The Big Monas",
     author = "F. Scott Fitzgerald",
+    publicationYear = null,
+    genre = null,
     summary = "A novel set in the Roaring Twenties, exploring themes of wealth, society, and the American dream."
 )
 
@@ -61,13 +65,15 @@ val book3 = Book(
     id = 3,
     title = "The Eiffel",
     author = "F. Scott Fitzgerald",
+    publicationYear = null,
+    genre = null,
     summary = "A novel set in the Roaring Twenties, exploring themes of wealth, society, and the American dream."
 )
 
 val books = arrayOf(book1,book2,book3,book1,book2,book3,book1,book2,book3)
 
 @Composable
-fun BookListScreen(modifier: Modifier = Modifier) {
+fun BookListScreen(navController: NavController, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -114,6 +120,7 @@ fun BookListScreen(modifier: Modifier = Modifier) {
 @Composable
 fun BookListScreenPreview() {
     UTSProjectTheme {
-        BookListScreen()
+        val navController = rememberNavController()
+        BookListScreen(navController)
     }
 }

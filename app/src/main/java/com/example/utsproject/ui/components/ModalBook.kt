@@ -86,7 +86,7 @@ fun DialogBook(
 fun SimpleOutlinedTextFieldSample(book: Book) {
     OutlinedTextField(
         value = book.title,
-        onValueChange = { book.title = it },
+        onValueChange = {  },
         label = { Text("Label") }
     )
 }

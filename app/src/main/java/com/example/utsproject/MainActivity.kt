@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.*
 import com.example.utsproject.ui.theme.UTSProjectTheme
 import com.example.utsproject.ui.screen.BookListScreen
 import com.example.utsproject.ui.screen.AddBookScreen
@@ -32,6 +33,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+
             UTSProjectTheme {
                 CustomScaffold()
             }
@@ -41,21 +43,28 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun CustomScaffold() {
-    var presses by remember { mutableIntStateOf(0) }
-//    kalo remember error jangan lupa import androidx.compose.runtime.*
+    val navController = rememberNavController()
+    // var presses by remember { mutableIntStateOf(0) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
 
         floatingActionButton = {
-            FloatingActionButton(onClick = { presses++ }) {
+            FloatingActionButton({
+              navController.navigate("book_add")
+            }) {
                 Icon(Icons.Default.Add, contentDescription = "Add")
             }
         }
     ) { innerPadding ->
-        BookListScreen(
+          NavHost(
+            navController, 
+            startDestination = "book_list",
             modifier = Modifier.padding(innerPadding)
-        )
+          ) {
+              composable("book_list") { BookListScreen(navController, modifier = Modifier.padding(innerPadding)) }
+              composable("book_add") { AddBookScreen(navController, modifier = Modifier.padding(innerPadding)) }
+          }
     }
 }
 

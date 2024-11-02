@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.mutableStateOf
+import androidx.navigation.NavController
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 import com.example.utsproject.data.model.Book
@@ -22,6 +23,7 @@ import com.example.utsproject.ui.viewmodel.BookViewModel
 
 @Composable
 fun AddBookScreen(
+    navController: NavController,
     // viewModel: BookViewModel,
     // onBookAdded: () -> Unit,
     modifier: Modifier = Modifier
