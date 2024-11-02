@@ -67,7 +67,7 @@ fun BookListScreen(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .padding(30.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp),
+        verticalArrangement = Arrangement.spacedBy(1.dp),
     ) {
         Text(
             text = "Book List",
@@ -81,7 +81,7 @@ fun BookListScreen(modifier: Modifier = Modifier) {
             Row(
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(170.dp),
+                    .height(240.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 CardBook(idx)
