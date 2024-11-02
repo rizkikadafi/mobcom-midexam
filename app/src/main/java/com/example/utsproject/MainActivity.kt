@@ -45,8 +45,8 @@ class MainActivity : ComponentActivity() {
                         startDestination = "book_list",
                         modifier = Modifier.padding(innerPadding)
                       ) {
-                          composable("book_list") { BookListScreen(navController, modifier = Modifier.padding(innerPadding)) }
-                          composable("book_add") { AddBookScreen(navController, modifier = Modifier.padding(innerPadding)) }
+                          composable("book_list") { BookListScreen(navController) }
+                          composable("book_add") { AddBookScreen(navController) }
                       }
                 }
             }

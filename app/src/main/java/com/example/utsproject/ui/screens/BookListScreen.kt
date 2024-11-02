@@ -1,6 +1,7 @@
 package com.example.utsproject.ui.screen
 
 import CardBook
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,6 +11,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -77,6 +79,7 @@ val book3 = Book(
 
 val books = arrayOf(book1,book2,book3,book1,book2,book3,book1,book2,book3)
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun BookListScreen(navController: NavController, modifier: Modifier = Modifier) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
@@ -91,12 +94,11 @@ fun BookListScreen(navController: NavController, modifier: Modifier = Modifier) 
               Icon(Icons.Default.Add, contentDescription = "Add")
           }
       }
-    ) { innerPadding ->
-
+    ) {
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(30.dp,30.dp,30.dp,0.dp)
+                .padding(30.dp,20.dp)
         ) {
             Text(
                 text = "Book List",
@@ -105,12 +107,13 @@ fun BookListScreen(navController: NavController, modifier: Modifier = Modifier) 
                     textAlign = TextAlign.Left,
                 )
             )
+            Spacer(modifier = Modifier.height(10.dp))
 
             Column(
                 modifier = modifier
                     .fillMaxHeight()
                     .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(1.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
             ) {
                 for (idx in books.indices step 2) {
                     Row(
@@ -127,6 +130,7 @@ fun BookListScreen(navController: NavController, modifier: Modifier = Modifier) 
                     }
 
                 }
+                Spacer(modifier = Modifier.padding(1.5.dp))
 
             }
 
