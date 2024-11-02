@@ -1,6 +1,8 @@
 package com.example.utsproject.ui.screen
 
+import android.service.carrier.MessagePdu
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -13,12 +15,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.utsproject.Greeting
 import kotlinx.coroutines.launch
 import com.example.utsproject.data.model.Book
 import com.example.utsproject.data.model.Genre
+import com.example.utsproject.ui.theme.UTSProjectTheme
 import com.example.utsproject.ui.viewmodel.BookViewModel
+
 
 @Composable
 fun AddBookScreen(
@@ -32,25 +42,37 @@ fun AddBookScreen(
     var genre by remember { mutableStateOf(Genre.ROMANCE) }
     var summary by remember { mutableStateOf("") }
 
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+            .padding(30.dp,80.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Text(
+            text= "Insert Book",
+            style = TextStyle(
+                fontSize = 40.sp,
+            )
+        )
+        Spacer(modifier = Modifier.height(30.dp))
         TextField(
+            modifier = Modifier.fillMaxWidth(),
             value = title,
             onValueChange = { title = it },
             label = { Text("Title") }
         )
-        
+
         TextField(
+            modifier = Modifier.fillMaxWidth(),
             value = author,
             onValueChange = { author = it },
             label = { Text("Author") }
         )
 
         TextField(
+            modifier = Modifier.fillMaxWidth(),
             value = publicationYear,
             onValueChange = { publicationYear = it },
             label = { Text("Publication Year") },
@@ -60,10 +82,10 @@ fun AddBookScreen(
         DropdownMenuGenreSelector(selectedGenre = genre, onGenreSelected = { genre = it })
 
         TextField(
+            modifier = Modifier.height(150.dp).fillMaxWidth(),
             value = summary,
             onValueChange = { summary = it },
             label = { Text("Summary") },
-            modifier = Modifier.height(150.dp)
         )
 
         Button(
@@ -81,11 +103,13 @@ fun AddBookScreen(
                 //     onBookAdded()
                 // }
             },
-            modifier = Modifier.align(Alignment.End)
+            modifier = Modifier.align(Alignment.End).fillMaxWidth()
         ) {
             Text("Add Book")
         }
     }
+
+
 }
 
 @Composable
@@ -95,8 +119,14 @@ fun DropdownMenuGenreSelector(
 ) {
     var expanded by remember { mutableStateOf(false) }
     val interactionSource = remember { MutableInteractionSource() }
-    
-    Box {
+
+    Box(
+        modifier = Modifier
+            .background(Color(0xffe2e2ec))
+            .fillMaxWidth()
+            .border(1.dp,Color(0xffadacb4))
+
+    ) {
         Text(
             text = selectedGenre.name,
             modifier = Modifier
@@ -110,7 +140,8 @@ fun DropdownMenuGenreSelector(
 
         DropdownMenu(
             expanded = expanded,
-            onDismissRequest = { expanded = false }
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.fillMaxWidth(0.85f)
         ) {
             Genre.values().forEach { genre ->
                 DropdownMenuItem(
@@ -124,3 +155,12 @@ fun DropdownMenuGenreSelector(
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun AddBookScreenPreview() {
+    UTSProjectTheme {
+        AddBookScreen()
+    }
+}
+
