@@ -61,7 +61,6 @@ fun CardBook(idx: Int, navController: NavController, modifier: Modifier = Modifi
                     )
                 )
             }
-
         }
         Column(
             modifier = modifier

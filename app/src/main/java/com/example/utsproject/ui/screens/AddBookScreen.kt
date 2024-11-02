@@ -110,6 +110,12 @@ fun AddBookScreen(
         ) {
             Text("Add Book")
         }
+        OutlinedButton(
+            onClick = { navController.navigate("book_list") },
+            modifier = Modifier.align(Alignment.End).fillMaxWidth()
+        ) {
+            Text("Back")
+        }
     }
 
 

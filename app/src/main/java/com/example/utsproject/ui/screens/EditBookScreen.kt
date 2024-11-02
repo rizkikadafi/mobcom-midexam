@@ -110,6 +110,12 @@ fun EditBookScreen(
         ) {
             Text("Edit Book")
         }
+        OutlinedButton(
+            onClick = { navController.navigate("book_list") },
+            modifier = Modifier.align(Alignment.End).fillMaxWidth()
+        ) {
+            Text("Back")
+        }
     }
 
 }
@@ -127,7 +133,6 @@ fun DropdownMenuEditGenreSelector(
             .background(Color(0xffe2e2ec))
             .fillMaxWidth()
             .border(1.dp,Color(0xffadacb4))
-
     ) {
         Text(
             text = selectedGenre.name,
