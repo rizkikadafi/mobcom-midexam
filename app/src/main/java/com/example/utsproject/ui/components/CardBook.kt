@@ -24,10 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.utsproject.ui.screen.books
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.navigation.NavController
 
 
 @Composable
-fun CardBook(idx: Int, modifier: Modifier = Modifier) {
+fun CardBook(idx: Int, navController: NavController, modifier: Modifier = Modifier) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
@@ -43,7 +44,9 @@ fun CardBook(idx: Int, modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.End
         ) {
             OutlinedButton(
-                onClick = { },
+                onClick = {
+                    navController.navigate("book_edit")
+                },
                 colors = ButtonDefaults.outlinedButtonColors(
                     containerColor = Color.Transparent
                 ),

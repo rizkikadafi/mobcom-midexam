@@ -22,6 +22,7 @@ import androidx.navigation.compose.*
 import com.example.utsproject.ui.theme.UTSProjectTheme
 import com.example.utsproject.ui.screen.BookListScreen
 import com.example.utsproject.ui.screen.AddBookScreen
+import com.example.utsproject.ui.screen.EditBookScreen
 import com.example.utsproject.ui.viewmodel.BookViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.mutableStateOf
@@ -47,6 +48,7 @@ class MainActivity : ComponentActivity() {
                       ) {
                           composable("book_list") { BookListScreen(navController) }
                           composable("book_add") { AddBookScreen(navController) }
+                          composable("book_edit") { EditBookScreen(navController) }
                       }
                 }
             }
