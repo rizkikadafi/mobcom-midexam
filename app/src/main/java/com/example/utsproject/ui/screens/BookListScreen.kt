@@ -107,7 +107,6 @@ fun BookListScreen(navController: NavController, modifier: Modifier = Modifier, 
                             CardBook(book = books[idx + 1])
                         }
                     }
-
                 }
                 Spacer(modifier = Modifier.padding(1.5.dp))
 
