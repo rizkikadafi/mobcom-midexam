@@ -1,5 +1,6 @@
 package com.example.utsproject.data.model
 
+import androidx.lifecycle.ViewModel
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo

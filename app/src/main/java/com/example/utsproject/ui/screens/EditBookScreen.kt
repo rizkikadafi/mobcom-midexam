@@ -108,7 +108,7 @@ fun EditBookScreen(
             },
             modifier = Modifier.align(Alignment.End).fillMaxWidth()
         ) {
-            Text("Edit Book")
+            Text("Confirm")
         }
         OutlinedButton(
             onClick = { navController.navigate("book_list") },

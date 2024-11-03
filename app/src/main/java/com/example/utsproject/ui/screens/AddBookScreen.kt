@@ -27,6 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.utsproject.Greeting
 import kotlinx.coroutines.launch
 import com.example.utsproject.data.model.Book
+//import com.example.utsproject.data.model.BookDB
 import com.example.utsproject.data.model.Genre
 import com.example.utsproject.ui.theme.UTSProjectTheme
 import com.example.utsproject.ui.viewmodel.BookViewModel
@@ -93,18 +94,17 @@ fun AddBookScreen(
 
         Button(
             onClick = {
-                // if (title.isNotBlank() && author.isNotBlank()) {
-                //     val book = Book(
-                //         id = 0,
-                //         title = title,
-                //         author = author,
-                //         publicationYear = publicationYear.toIntOrNull(),
-                //         genre = genre,
-                //         summary = summary
-                //     )
-                //     viewModel.addBook(book)
-                //     onBookAdded()
-                // }
+//                 if (title.isNotBlank() && author.isNotBlank()) {
+//                     val book = Book(
+//                         id = System.currentTimeMillis().toInt(),
+//                         title = title,
+//                         author = author,
+//                         publicationYear = publicationYear.toIntOrNull(),
+//                         genre = genre,
+//                         summary = summary
+//                     )
+//                     BookDB.addBook(book)
+//                 }
             },
             modifier = Modifier.align(Alignment.End).fillMaxWidth()
         ) {
