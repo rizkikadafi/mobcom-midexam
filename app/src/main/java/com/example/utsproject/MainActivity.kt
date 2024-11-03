@@ -22,11 +22,13 @@ import androidx.navigation.compose.*
 import com.example.utsproject.ui.theme.UTSProjectTheme
 import com.example.utsproject.ui.screen.BookListScreen
 import com.example.utsproject.ui.screen.AddBookScreen
-import com.example.utsproject.ui.viewmodel.BookViewModel
+import com.example.utsproject.ui.viewmodel.BookViewModel 
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 

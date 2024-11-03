@@ -1,15 +1,22 @@
-package com.example.utsproject.ui.viewmodel
+package com.example.utsproject.ui.viewmodel 
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import com.example.utsproject.data.dao.BookDao
 import com.example.utsproject.data.model.Book
 import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class BookViewModel(private val bookDao: BookDao) : ViewModel() {
-    val books = bookDao.getAllBooks()
+@HiltViewModel
+class BookViewModel @Inject constructor(
+  private val bookDao: BookDao
+) : ViewModel() {
+    val allBooks: LiveData<List<Book>> = bookDao.getAllBooks().asLiveData()
 
-    fun addBook(book: Book) {
+    fun insertBook(book: Book) {
         viewModelScope.launch {
             bookDao.insertBook(book)
         }
