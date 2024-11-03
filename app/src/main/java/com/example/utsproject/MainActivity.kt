@@ -27,7 +27,9 @@ import com.example.utsproject.ui.viewmodel.BookViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -48,7 +50,7 @@ class MainActivity : ComponentActivity() {
                       ) {
                           composable("book_list") { BookListScreen(navController) }
                           composable("book_add") { AddBookScreen(navController) }
-                          composable("book_edit") { EditBookScreen(navController) }
+                          // composable("book_edit") { EditBookScreen(navController) }
                       }
                 }
             }

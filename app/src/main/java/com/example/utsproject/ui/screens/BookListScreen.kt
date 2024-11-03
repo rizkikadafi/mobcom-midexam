@@ -45,44 +45,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.*
 import androidx.navigation.NavController
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.utsproject.Greeting
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.utsproject.ui.theme.UTSProjectTheme
 import com.example.utsproject.data.model.Book
+import com.example.utsproject.ui.viewmodel.BookViewModel
 import androidx.compose.ui.unit.sp
-
-val book1 = Book(
-    id = 1,
-    title = "The Great Gatsby",
-    author = "F. Scott Fitzgerald",
-    publicationYear = null,
-    genre = null,
-    summary = "A novel set in the Roaring Twenties, exploring themes of wealth, society, and the American dream."
-)
-
-val book2 = Book(
-    id = 2,
-    title = "The Big Monas",
-    author = "F. Scott Fitzgerald",
-    publicationYear = null,
-    genre = null,
-    summary = "A novel set in the Roaring Twenties, exploring themes of wealth, society, and the American dream."
-)
-
-val book3 = Book(
-    id = 3,
-    title = "The Eiffel",
-    author = "F. Scott Fitzgerald",
-    publicationYear = null,
-    genre = null,
-    summary = "A novel set in the Roaring Twenties, exploring themes of wealth, society, and the American dream."
-)
-
-val books = arrayOf(book1,book2,book3,book1,book2,book3,book1,book2,book3)
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BookListScreen(navController: NavController, modifier: Modifier = Modifier) {
+fun BookListScreen(navController: NavController, modifier: Modifier = Modifier, viewModel: BookViewModel = hiltViewModel()) {
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
+
+    val books by viewModel.allBooks.observeAsState(initial = emptyList())
 
     Scaffold(
       modifier = Modifier.fillMaxSize(),
@@ -122,10 +100,10 @@ fun BookListScreen(navController: NavController, modifier: Modifier = Modifier) 
                             .height(screenHeight * 0.25f),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        CardBook(idx, navController)
+                        CardBook(book = books[idx])
 
                         if (idx + 1 < books.size) {
-                            CardBook(idx, navController)
+                            CardBook(book = books[idx + 1])
                         }
                     }
 
