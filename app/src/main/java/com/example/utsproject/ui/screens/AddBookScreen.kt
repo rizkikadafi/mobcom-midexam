@@ -24,10 +24,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.utsproject.Greeting
 import kotlinx.coroutines.launch
 import com.example.utsproject.data.model.Book
-//import com.example.utsproject.data.model.BookDB
 import com.example.utsproject.data.model.Genre
 import com.example.utsproject.ui.theme.UTSProjectTheme
 import com.example.utsproject.ui.viewmodel.BookViewModel
@@ -36,9 +36,8 @@ import com.example.utsproject.ui.viewmodel.BookViewModel
 @Composable
 fun AddBookScreen(
     navController: NavController,
-    // viewModel: BookViewModel,
-    // onBookAdded: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: BookViewModel = hiltViewModel()
 ) {
     var title by remember { mutableStateOf("") }
     var author by remember { mutableStateOf("") }
@@ -94,17 +93,23 @@ fun AddBookScreen(
 
         Button(
             onClick = {
-//                 if (title.isNotBlank() && author.isNotBlank()) {
-//                     val book = Book(
-//                         id = System.currentTimeMillis().toInt(),
-//                         title = title,
-//                         author = author,
-//                         publicationYear = publicationYear.toIntOrNull(),
-//                         genre = genre,
-//                         summary = summary
-//                     )
-//                     BookDB.addBook(book)
-//                 }
+              // implement add book logic
+              if (title.isNotBlank() && author.isNotBlank()) {
+                  val book = Book(
+                      id = 0, // ID akan di-generate otomatis oleh Room
+                      title = title,
+                      author = author,
+                      publicationYear = publicationYear.toIntOrNull(),
+                      genre = genre,
+                      summary = summary
+                  )
+
+                  // Panggil fungsi insertBook dari viewModel
+                  viewModel.insertBook(book)
+
+                  // Navigasi kembali ke layar daftar buku
+                  navController.popBackStack()
+              }
             },
             modifier = Modifier.align(Alignment.End).fillMaxWidth()
         ) {

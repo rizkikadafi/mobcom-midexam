@@ -22,13 +22,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.utsproject.ui.screen.books
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.navigation.NavController
-
+import com.example.utsproject.data.model.Book
 
 @Composable
-fun CardBook(idx: Int, navController: NavController, modifier: Modifier = Modifier) {
+fun CardBook(book: Book, modifier: Modifier = Modifier) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
@@ -45,7 +44,7 @@ fun CardBook(idx: Int, navController: NavController, modifier: Modifier = Modifi
         ) {
             OutlinedButton(
                 onClick = {
-                    navController.navigate("book_edit")
+                    // navController.navigate("book_edit")
                 },
                 colors = ButtonDefaults.outlinedButtonColors(
                     containerColor = Color.Transparent
@@ -70,7 +69,7 @@ fun CardBook(idx: Int, navController: NavController, modifier: Modifier = Modifi
         ) {
 
             Text(
-                text = "${books[idx].title}",
+                text = "${book.title}",
                 modifier = modifier,
                 style = TextStyle(
                     fontSize = 14.sp,
@@ -78,7 +77,7 @@ fun CardBook(idx: Int, navController: NavController, modifier: Modifier = Modifi
                 )
             )
             Text(
-                text = "${books[idx].author}",
+                text = "${book.author}",
                 modifier = modifier,
                 style = TextStyle(
                     fontSize = 10.sp,
@@ -90,5 +89,4 @@ fun CardBook(idx: Int, navController: NavController, modifier: Modifier = Modifi
 
         }
     }
-
 }
