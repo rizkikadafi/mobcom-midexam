@@ -3,6 +3,7 @@ package com.example.utsproject.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
 import androidx.lifecycle.asLiveData
 import com.example.utsproject.data.dao.BookDao
 import com.example.utsproject.data.model.Book
@@ -31,6 +32,13 @@ class BookViewModel @Inject constructor(
     fun deleteBook(book: Book) {
         viewModelScope.launch {
             bookDao.deleteBook(book)
+        }
+    }
+
+    fun getBookById(bookId: Int): LiveData<Book?> {
+        return liveData {
+            val book = bookDao.getBookById(bookId)
+            emit(book)
         }
     }
 }

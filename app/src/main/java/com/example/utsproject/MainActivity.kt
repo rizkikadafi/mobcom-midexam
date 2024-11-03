@@ -51,6 +51,13 @@ class MainActivity : ComponentActivity() {
                           composable("book_list") { BookListScreen(navController) }
                           composable("book_add") { AddBookScreen(navController) }
                           // composable("book_edit") { EditBookScreen(navController) }
+                          composable("book_edit/{bookId}") { backStackEntry ->
+                              val bookId = backStackEntry.arguments?.getString("bookId")?.toIntOrNull()
+                              
+                              if (bookId != null) {
+                                  EditBookScreen(navController, bookId)
+                              }
+                        }
                       }
                 }
             }
