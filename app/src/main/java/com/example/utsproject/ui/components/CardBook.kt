@@ -27,12 +27,11 @@ import androidx.navigation.NavController
 import com.example.utsproject.data.model.Book
 
 @Composable
-fun CardBook(book: Book, modifier: Modifier = Modifier) {
+fun CardBook(book: Book, navController: NavController, modifier: Modifier = Modifier) {
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        ),
+            defaultElevation = 6.dp),
         modifier = Modifier
             .width(screenWidth * 0.4f)
     ) {
@@ -45,6 +44,7 @@ fun CardBook(book: Book, modifier: Modifier = Modifier) {
             OutlinedButton(
                 onClick = {
                     // navController.navigate("book_edit")
+                    navController.navigate("book_edit/${book.id}")
                 },
                 colors = ButtonDefaults.outlinedButtonColors(
                     containerColor = Color.Transparent

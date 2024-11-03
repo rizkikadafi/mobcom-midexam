@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.foundation.text.KeyboardOptions
@@ -23,7 +24,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.utsproject.Greeting
 import kotlinx.coroutines.launch
 import com.example.utsproject.data.model.Book
@@ -35,9 +38,9 @@ import com.example.utsproject.ui.viewmodel.BookViewModel
 @Composable
 fun EditBookScreen(
     navController: NavController,
-    // viewModel: BookViewModel,
-    // onBookAdded: () -> Unit,
-    modifier: Modifier = Modifier
+    bookId: Int,
+    modifier: Modifier = Modifier,
+    viewModel: BookViewModel = hiltViewModel()
 ) {
     var title by remember { mutableStateOf("") }
     var author by remember { mutableStateOf("") }
@@ -45,6 +48,17 @@ fun EditBookScreen(
     var genre by remember { mutableStateOf(Genre.ROMANCE) }
     var summary by remember { mutableStateOf("") }
 
+    val book by viewModel.getBookById(bookId).observeAsState()
+
+    LaunchedEffect(book) {
+        book?.let {
+            title = it.title
+            author = it.author
+            publicationYear = it.publicationYear.toString()
+            genre = it.genre ?: Genre.ROMANCE
+            summary = it.summary ?: ""
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -93,18 +107,24 @@ fun EditBookScreen(
 
         Button(
             onClick = {
-                // if (title.isNotBlank() && author.isNotBlank()) {
-                //     val book = Book(
-                //         id = 0,
-                //         title = title,
-                //         author = author,
-                //         publicationYear = publicationYear.toIntOrNull(),
-                //         genre = genre,
-                //         summary = summary
-                //     )
-                //     viewModel.addBook(book)
-                //     onBookAdded()
-                // }
+              if (title.isNotBlank() && author.isNotBlank() && publicationYear.isNotBlank()) {
+                  val publicationYearInt = publicationYear.toIntOrNull() ?: 0 // Konversi publicationYear ke Int, gunakan 0 jika null
+
+                  val updatedBook = Book(
+                      id = bookId,
+                      title = title,
+                      author = author,
+                      publicationYear = publicationYearInt,
+                      genre = genre,
+                      summary = summary
+                  )
+
+                  viewModel.updateBook(updatedBook)
+
+                  navController.navigate("book_list") {
+                      popUpTo("book_list") { inclusive = true }
+                  }
+              }
             },
             modifier = Modifier.align(Alignment.End).fillMaxWidth()
         ) {
@@ -163,12 +183,12 @@ fun DropdownMenuEditGenreSelector(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun EditBookScreenPreview() {
-    UTSProjectTheme {
-        val navController = rememberNavController()
-        EditBookScreen(navController)
-    }
-}
+// @Preview(showBackground = true)
+// @Composable
+// fun EditBookScreenPreview() {
+//     UTSProjectTheme {
+//         val navController = rememberNavController()
+//         EditBookScreen(navController)
+//     }
+// }
 

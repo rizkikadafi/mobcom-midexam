@@ -101,10 +101,10 @@ fun BookListScreen(navController: NavController, modifier: Modifier = Modifier, 
                             .height(screenHeight * 0.25f),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        CardBook(book = books[idx])
+                        CardBook(book = books[idx], navController = navController)
 
                         if (idx + 1 < books.size) {
-                            CardBook(book = books[idx + 1])
+                            CardBook(book = books[idx + 1], navController = navController)
                         }
                     }
                 }
